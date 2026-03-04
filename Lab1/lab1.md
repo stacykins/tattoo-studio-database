@@ -40,10 +40,15 @@
 - `name` — ПІБ
 - `specialization` — Стиль (Old School, Realism тощо)
 
-### Clients (Клієнти)
-- `client_id` (PK) — ID клієнта
-- `phone` — Номер телефону
-- `medical_info` — Алергії/протипоказання
+### Таблиця 1 - Clients (Клієнти)
+| Поле | Тип | Ключ | Опис |
+|------|------|------|------|
+| client_id | INT | PK | Ідентифікатор клієнта |
+| full_name | VARCHAR | | ПІБ клієнта |
+| phone | VARCHAR | | Контактний номер телефону |
+| email | VARCHAR | | Електронна пошта |
+| birth_date | DATE | | Дата народження (для контролю 18+) |
+| medical_notes| TEXT | | Примітки про алергії та здоров'я |
 
 ### Sessions (Сеанси)
 - `session_id` (PK) — ID сеансу
