@@ -42,6 +42,7 @@
 | full_name | VARCHAR | | ПІБ клієнта |
 | phone | VARCHAR | | Контактний телефон |
 | medical_notes| TEXT | | Алергії та протипоказання |
+| birth_date | DATE | | Дата народження |
 
 ### Таблиця 2 - Artists (Майстри)
 | Поле | Тип | Ключ | Опис |
