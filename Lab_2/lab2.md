@@ -1,8 +1,8 @@
-# 🎨 Tattoo Studio Management System Database – Lab №2
+# Tattoo Studio Management System Database – Lab №2
 
 ## 1. Implementation (SQL Script)
 
-### 1.1 Database Schema Creation (DDL)
+### 1.1 Створення схеми бази даних (DDL)
 ```sql
 -- ==========================================
 -- 1. DATABASE SCHEMA CREATION (DDL)
@@ -91,46 +91,38 @@ INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 (2, 1, 1),
 (3, 2, 1);
 ```
-## 2. Tables and Keys Mapping
 
-| Table           | Description                              | Primary Key | Foreign Keys              |
-|----------------|------------------------------------------|------------|---------------------------|
-| Clients        | Stores client info and medical notes     | client_id  | —                         |
-| Artists        | Tattoo artists and their specialization  | artist_id  | —                         |
-| Sessions       | Appointments between clients and artists | session_id | client_id, artist_id      |
-| Tattoos        | Details of tattoos performed             | tattoo_id  | session_id                |
-| Inventory      | Materials and consumables                | item_id    | —                         |
-| Material_Usage | Tracks material usage per session        | usage_id   | session_id, item_id       |
+# 2. Опис таблиць та зв'язків
 
-## 3. Constraints & Assumptions
+| Таблиця | Опис | Первинний ключ | Зовнішні ключі |
+|---------|------|----------------|----------------|
+| Clients | Інформація про клієнтів та медзаписки | client_id | — |
+| Artists | Тату-майстри та їх спеціалізація | artist_id | — |
+| Sessions | Записи на сеанси між клієнтами та майстрами | session_id | client_id, artist_id |
+| Tattoos | Деталі виконаних татуювань | tattoo_id | session_id |
+| Inventory | Матеріали та витратні засоби | item_id | — |
+| Material_Usage | Облік використання матеріалів за сеансами | usage_id | session_id, item_id |
 
-### Referential Integrity
+# 3. Обмеження та припущення
 
-- **ON DELETE CASCADE**: Sessions, Tattoos, Material_Usage – automatically deletes dependent records  
-- **ON DELETE RESTRICT**: Artists – prevents deletion if linked sessions exist  
+## Цілісність посилань
+- **ON DELETE CASCADE**: Сеанси, татуювання, використання матеріалів – автоматичне видалення залежних записів  
+- **ON DELETE RESTRICT**: Майстри – запобігає видаленню, якщо існують пов'язані сеанси
 
-### Data Validation
+## Валідація даних
+- Загальна вартість (`total_price`) >= 0  
+- Кількість на складі (`quantity`) >= 0  
+- Використана кількість (`amount_used`) > 0
 
-- total_price >= 0  
-- quantity >= 0  
-- amount_used > 0  
+## Унікальність
+- Номер телефону клієнта (`Clients.phone`) є унікальним – запобігає дублюванню записів клієнтів
 
-### Uniqueness
+# 4. Результати
+- База даних була успішно створена в pgAdmin  
+- Заповнена тестовими даними  
+- Перевірена на коректність зв'язків, дотримання обмежень та узгодженість даних
 
-- Clients.phone is UNIQUE – prevents duplicate client records  
-
-## 4. Results
-
-The database was successfully:
-
-- Created in pgAdmin  
-- Populated with sample data  
-- Verified for correct relationships, constraint enforcement, and data consistency  
-
-## 5. Summary
-
-This database design:
-
-- Ensures data integrity  
-- Supports real-world tattoo studio workflows  
-- Demonstrates proper use of Primary & Foreign Keys, Constraints, and Relational structure
+# 5. Висновки
+- Розроблена структура бази даних забезпечує цілісність даних  
+- Підтримує реальні робочі процеси тату-студії  
+- Демонструє правильне використання первинних та зовнішніх ключів, обмежень та реляційної структури
