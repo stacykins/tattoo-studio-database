@@ -3,7 +3,7 @@
 ## 1. Implementation (SQL Script)
 
 ### 1.1 Database Schema Creation (DDL)
-
+```sql
 -- Clients table
 CREATE TABLE Clients (
     client_id SERIAL PRIMARY KEY,
@@ -90,7 +90,7 @@ INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 (1, 2, 1),
 (2, 1, 1),
 (3, 2, 1);
-
+```
 ## 2. Tables and Keys Mapping
 
 | Table           | Description                              | Primary Key | Foreign Keys              |
