@@ -119,8 +119,7 @@ INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 
 # 4. Результати
 (./photo_1_2026-03-19_03-12-24.jpg)
-
-<img width="840" height="404" alt="image" src="Lab_2/photo_1_2026-03-19_03-12-24.jpg" />
+<img width="840" height="404" alt="image" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_1_2026-03-19_03-12-24.jpg" />
 
 
 # 5. Висновки
