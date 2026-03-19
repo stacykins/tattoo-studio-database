@@ -1,11 +1,14 @@
 # Tattoo Studio Management System Database Project - Lab №2
 
 ## 1. Implementation (SQL Script)
-This section includes the DDL (Data Definition Language) to create the schema and DML (Data Manipulation Language) to populate the tables with sample rows to ensure referential integrity.
+This section includes the **DDL** (Data Definition Language) to create the schema and **DML** (Data Manipulation Language) to populate the tables with sample rows, ensuring referential integrity and proper relationships.
 
 ```sql
--- DATABASE SCHEMA CREATION
+-- ==========================================
+-- 1. DATABASE SCHEMA CREATION (DDL)
+-- ==========================================
 
+-- Table: Clients
 CREATE TABLE Clients (
     client_id SERIAL PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -13,12 +16,14 @@ CREATE TABLE Clients (
     medical_notes TEXT
 );
 
+-- Table: Artists
 CREATE TABLE Artists (
     artist_id SERIAL PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     specialization VARCHAR(50) NOT NULL
 );
 
+-- Table: Sessions
 CREATE TABLE Sessions (
     session_id SERIAL PRIMARY KEY,
     client_id INTEGER NOT NULL REFERENCES Clients(client_id) ON DELETE CASCADE,
@@ -27,6 +32,7 @@ CREATE TABLE Sessions (
     total_price DECIMAL(10, 2) NOT NULL CHECK (total_price >= 0)
 );
 
+-- Table: Tattoos
 CREATE TABLE Tattoos (
     tattoo_id SERIAL PRIMARY KEY,
     session_id INTEGER NOT NULL REFERENCES Sessions(session_id) ON DELETE CASCADE,
@@ -34,6 +40,7 @@ CREATE TABLE Tattoos (
     description TEXT
 );
 
+-- Table: Inventory
 CREATE TABLE Inventory (
     item_id SERIAL PRIMARY KEY,
     item_name VARCHAR(100) NOT NULL,
@@ -41,6 +48,7 @@ CREATE TABLE Inventory (
     quantity INTEGER NOT NULL DEFAULT 0 CHECK (quantity >= 0)
 );
 
+-- Table: Material_Usage
 CREATE TABLE Material_Usage (
     usage_id SERIAL PRIMARY KEY,
     session_id INTEGER NOT NULL REFERENCES Sessions(session_id) ON DELETE CASCADE,
@@ -48,7 +56,9 @@ CREATE TABLE Material_Usage (
     amount_used INTEGER NOT NULL CHECK (amount_used > 0)
 );
 
--- DATA INSERTION (SAMPLE DATA)
+-- ==========================================
+-- 2. DATA INSERTION (DML - Sample Data)
+-- ==========================================
 
 INSERT INTO Clients (full_name, phone, medical_notes) VALUES
 ('Олексій Петренко', '+380501112233', 'Алергія на червоний пігмент'),
@@ -78,6 +88,5 @@ INSERT INTO Tattoos (session_id, body_part, description) VALUES
 INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 (1, 1, 2),
 (1, 2, 1),
-(2, 1, 1);
-
-2. Tables and KeysTableDescriptionPrimary Key (PK)Foreign Keys (FK)ClientsStores personal details and medical notesclient_id—ArtistsTattoo masters and their stylesartist_id—SessionsScheduled appointments between clients and artistssession_idclient_id, artist_idTattoosSpecific details about the tattoo worktattoo_idsession_idInventoryConsumables like ink, needles, etc.item_id—Material_UsageTracks items used during each sessionusage_idsession_id, item_id3. Important Constraints & AssumptionsCascading Deletes: ON DELETE CASCADE is used for Sessions and Tattoos. If a client is removed, their session history is cleaned up automatically.Strict Deletion Policy: For the Artists table, we use ON DELETE RESTRICT. A master cannot be deleted if they still have scheduled sessions.Data Validation:total_price and quantity must be non-negative.amount_used must be greater than zero.Uniqueness: Client phone numbers are UNIQUE to prevent duplicate records.4. Results of data integration into tables in pgAdmin
+(2, 1, 1),
+(3, 2, 1);
