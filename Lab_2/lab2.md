@@ -118,7 +118,9 @@ INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 - Номер телефону клієнта (`Clients.phone`) є унікальним – запобігає дублюванню записів клієнтів
 
 # 4. Результати
-photo_1_2026-03-19_03-12-24.jpg
+(./photo_1_2026-03-19_03-12-24.jpg)
+
+<img width="840" height="404" alt="image" src="https://github.com/user-attachments/assets/71d8d0ad-32d3-4c50-ad9c-9e0cef61a511" />
 
 
 # 5. Висновки
