@@ -118,8 +118,20 @@ INSERT INTO Material_Usage (session_id, item_id, amount_used) VALUES
 - Номер телефону клієнта (`Clients.phone`) є унікальним – запобігає дублюванню записів клієнтів
 
 # 4. Результати
-(./photo_1_2026-03-19_03-12-24.jpg)
-<img width="840" height="404" alt="image" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_1_2026-03-19_03-12-24.jpg" />
+
+<img width="840" height="404" alt="photo_1" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_1_2026-03-19_03-12-24.jpg" />
+
+<img width="792" height="410" alt="photo_2" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_2_2026-03-19_03-12-24.jpg" />
+
+<img width="797" height="414" alt="photo_3" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_3_2026-03-19_03-12-24.jpg" />
+
+<img width="805" height="446" alt="photo_4" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_4_2026-03-19_03-12-24.jpg" />
+
+<img width="1202" height="453" alt="photo_5" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_5_2026-03-19_03-12-24.jpg" />
+
+<img width="1136" height="412" alt="photo_6" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_6_2026-03-19_03-12-24.jpg" />
+
+<img width="1136" height="412" alt="photo_7" src="https://raw.githubusercontent.com/stacykins/tattoo-studio-database/main/Lab_2/photo_7_2026-03-19_03-12-24.jpg" />
 
 
 # 5. Висновки
