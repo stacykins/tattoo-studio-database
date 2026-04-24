@@ -33,3 +33,14 @@ SET medical_notes = 'Скасовано клієнтом'
 WHERE client_id = 2;
 
 COMMIT;
+
+### Запит для перевірки результату
+SQL
+SELECT 
+    c.full_name, 
+    c.medical_notes, 
+    s.session_id, 
+    s.total_price
+FROM Clients c
+LEFT JOIN Sessions s ON s.client_id = c.client_id
+WHERE c.client_id = 2;
