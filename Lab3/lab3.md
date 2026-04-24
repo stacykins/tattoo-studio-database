@@ -6,17 +6,22 @@
 Звіт містить транзакційні сценарії, які імітують реальні бізнес-процеси тату-салону.
 
 Було реалізовано наступні сценарії транзакцій:
-- **Транзакція 1:** Скасування сеансу, видалення записів про підготовлені матеріали та оновлення нотаток про клієнта.
-- **Транзакція 2:** Завершення сеансу, фіксація фінальної вартості роботи та списання використаних матеріалів зі складу.
+- **Транзакція 1:** Скасування сеансу, видалення записів про матеріали та оновлення нотаток клієнта.
+- **Транзакція 2:** Завершення сеансу та оновлення складу.
 
 ---
 
 ## 2. Транзакція 1 — Скасування сеансу та очищення даних
 
-### Сценарій  
-Ця транзакція імітує ситуацію, коли клієнт скасовує свій існуючий запис на сеанс. У такому випадку система повинна обнулити вартість сеансу (оскільки послуга не надана). Крім того, записи про попередньо підготовлені матеріали для цього сеансу мають бути видалені, а в профілі клієнта робиться відповідна примітка про причину скасування.
+### Сценарій
 
-### SQL Запит
+Клієнт скасовує запис на сеанс.  
+Система:
+- обнуляє вартість
+- видаляє матеріали
+- додає примітку клієнту
+
+### SQL-запит
 
 ```sql
 BEGIN;
@@ -33,9 +38,7 @@ SET medical_notes = 'Скасовано клієнтом'
 WHERE client_id = 2;
 
 COMMIT;
-
-### Запит для перевірки результату
-SQL
+Перевірка результату
 SELECT 
     c.full_name, 
     c.medical_notes, 
@@ -44,3 +47,76 @@ SELECT
 FROM Clients c
 LEFT JOIN Sessions s ON s.client_id = c.client_id
 WHERE c.client_id = 2;
+Результат
+
+Тут вставити результат виконання запиту (таблицю або скріншот)
+
+3. Транзакція 2 — Завершення сеансу та оновлення складу
+Сценарій
+
+Після завершення сеансу:
+
+додається 500 грн до вартості
+списуються матеріали зі складу
+SQL-запит
+BEGIN;
+
+UPDATE Sessions 
+SET total_price = total_price + 500 
+WHERE session_id = 1;
+
+UPDATE Inventory 
+SET quantity = quantity - 2 
+WHERE item_id = 1;
+
+UPDATE Inventory 
+SET quantity = quantity - 1 
+WHERE item_id = 2;
+
+COMMIT;
+Перевірка результату
+SELECT 
+    s.session_id, 
+    s.total_price, 
+    i.item_name, 
+    i.quantity AS stock_left
+FROM Sessions s
+JOIN Material_Usage mu ON mu.session_id = s.session_id
+JOIN Inventory i ON i.item_id = mu.item_id
+WHERE s.session_id = 1;
+Результат
+
+Тут вставити результат виконання запиту
+
+4. Операції маніпулювання даними
+SELECT
+SELECT full_name, specialization 
+FROM Artists 
+WHERE specialization = 'Realism';
+SELECT session_id, scheduled_at, total_price 
+FROM Sessions 
+WHERE total_price > 2000 
+ORDER BY total_price DESC;
+SELECT c.full_name, s.scheduled_at, s.total_price 
+FROM Clients c 
+JOIN Sessions s ON c.client_id = s.client_id;
+INSERT
+INSERT INTO Clients (full_name, phone, medical_notes) 
+VALUES ('Катерина Мельник', '+380509998877', 'Немає');
+INSERT INTO Inventory (item_name, category, quantity) 
+VALUES ('Трансферний папір', 'Paper', 50);
+UPDATE
+UPDATE Clients 
+SET medical_notes = 'Низький больовий поріг, алергія на латекс' 
+WHERE phone = '+380937778899';
+UPDATE Sessions 
+SET total_price = 2200.00 
+WHERE session_id = 3;
+UPDATE Inventory 
+SET quantity = quantity + 50 
+WHERE item_name = 'Голки RL-3';
+DELETE
+DELETE FROM Clients 
+WHERE phone = '+380509998877';
+DELETE FROM Inventory 
+WHERE item_name = 'Трансферний папір';
