@@ -132,6 +132,7 @@ WHERE session_id = 3;
 UPDATE Inventory 
 SET quantity = quantity + 50 
 WHERE item_name = 'Голки RL-3';
+```
 ### DELETE
 ```
 ```sql
