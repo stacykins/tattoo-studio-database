@@ -99,53 +99,63 @@ WHERE s.session_id = 1;
 
 ### SELECT
 ```sql
+-- Вибираємо імена та спеціалізації майстрів, які працюють у стилі 'Realism'
 SELECT full_name, specialization 
 FROM Artists 
 WHERE specialization = 'Realism';
 ```
 ```sql
+-- Отримуємо інформацію про сеанси, вартість яких перевищує 2000 грн, відсортовані від найдорожчого до найдешевшого
 SELECT session_id, scheduled_at, total_price 
 FROM Sessions 
 WHERE total_price > 2000 
 ORDER BY total_price DESC;
 ```
 ```sql
+-- Об'єднуємо таблиці клієнтів та сеансів (JOIN), щоб побачити ім'я клієнта поруч з датою та вартістю його сеансу
 SELECT c.full_name, s.scheduled_at, s.total_price 
 FROM Clients c 
 JOIN Sessions s ON c.client_id = s.client_id;
 ```
 ### INSERT
 ```sql
+-- Додаємо нового клієнта з його персональними даними до таблиці Clients
 INSERT INTO Clients (full_name, phone, medical_notes) 
 VALUES ('Катерина Мельник', '+380509998877', 'Немає');
 ```
 ```sql
+-- Додаємо новий розхідний матеріал (трансферний папір) до складу
 INSERT INTO Inventory (item_name, category, quantity) 
 VALUES ('Трансферний папір', 'Paper', 50);
 ```
 ### UPDATE
 
 ```sql
+-- Оновлюємо медичні нотатки для клієнта (шукаємо за його унікальним номером телефону)
 UPDATE Clients 
 SET medical_notes = 'Низький больовий поріг, алергія на латекс' 
 WHERE phone = '+380937778899';
 ```
 ```sql
+-- Встановлюємо нову фінальну ціну для сеансу з ID 3 (наприклад, через зміну ескізу на складніший)
 UPDATE Sessions 
 SET total_price = 2200.00 
 WHERE session_id = 3;
 ```
 ```sql
+-- Збільшуємо кількість голок на складі на 50 одиниць (прийшла нова поставка)
 UPDATE Inventory 
 SET quantity = quantity + 50 
 WHERE item_name = 'Голки RL-3';
 ```
 ### DELETE
 ```sql
+-- Видаляємо з бази запис про клієнта за номером телефону (наприклад, створено помилково)
 DELETE FROM Clients 
 WHERE phone = '+380509998877';
 ```
 ```sql
+-- Видаляємо трансферний папір із загального списку складу
 DELETE FROM Inventory 
 WHERE item_name = 'Трансферний папір';
 ```
