@@ -79,7 +79,9 @@ SET quantity = quantity - 1
 WHERE item_id = 2;
 
 COMMIT;
-Перевірка результату
+```
+## Перевірка результату
+```sql
 SELECT 
     s.session_id, 
     s.total_price, 
@@ -121,8 +123,9 @@ VALUES ('Катерина Мельник', '+380509998877', 'Немає');
 ```sql
 INSERT INTO Inventory (item_name, category, quantity) 
 VALUES ('Трансферний папір', 'Paper', 50);
-### UPDATE
 ```
+### UPDATE
+
 ```sql
 UPDATE Clients 
 SET medical_notes = 'Низький больовий поріг, алергія на латекс' 
@@ -139,7 +142,6 @@ SET quantity = quantity + 50
 WHERE item_name = 'Голки RL-3';
 ```
 ### DELETE
-```
 ```sql
 DELETE FROM Clients 
 WHERE phone = '+380509998877';
