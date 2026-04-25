@@ -54,7 +54,6 @@ WHERE c.client_id = 2;
 <img width="657" height="87" alt="image" src="https://github.com/user-attachments/assets/a788a8d7-23b4-4197-bd2f-994a7ab64ade" />
 
 
-Тут вставити результат виконання запиту (таблицю або скріншот)
 
 ## 3. Транзакція 2 — Завершення сеансу та оновлення складу
 Сценарій
@@ -93,9 +92,8 @@ JOIN Material_Usage mu ON mu.session_id = s.session_id
 JOIN Inventory i ON i.item_id = mu.item_id
 WHERE s.session_id = 1;
 ```
-Результат
+<img width="601" height="147" alt="image" src="https://github.com/user-attachments/assets/c1197775-ba80-457f-9992-23ecb5c6d6ba" />
 
-Тут вставити результат виконання запиту
 
 ## 4. Операції маніпулювання даними
 
