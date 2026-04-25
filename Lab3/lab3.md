@@ -51,7 +51,8 @@ FROM Clients c
 LEFT JOIN Sessions s ON s.client_id = c.client_id
 WHERE c.client_id = 2;
 ```
-Результат
+<img width="657" height="87" alt="image" src="https://github.com/user-attachments/assets/a788a8d7-23b4-4197-bd2f-994a7ab64ade" />
+
 
 Тут вставити результат виконання запиту (таблицю або скріншот)
 
