@@ -129,6 +129,8 @@ JOIN Sessions s ON c.client_id = s.client_id;
 INSERT INTO Clients (full_name, phone, medical_notes) 
 VALUES ('Катерина Мельник', '+380509998877', 'Немає');
 ```
+<img width="782" height="552" alt="image" src="https://github.com/user-attachments/assets/26a32093-39cf-4768-9407-28135e0e41ce" />
+
 ```sql
 -- Додаємо новий розхідний матеріал (трансферний папір) до складу
 INSERT INTO Inventory (item_name, category, quantity) 
