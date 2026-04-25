@@ -38,7 +38,10 @@ SET medical_notes = 'Скасовано клієнтом'
 WHERE client_id = 2;
 
 COMMIT;
-Перевірка результату
+```
+
+## Перевірка результату
+```sql
 SELECT 
     c.full_name, 
     c.medical_notes, 
