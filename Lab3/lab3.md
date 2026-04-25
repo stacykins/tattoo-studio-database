@@ -136,6 +136,8 @@ VALUES ('Катерина Мельник', '+380509998877', 'Немає');
 INSERT INTO Inventory (item_name, category, quantity) 
 VALUES ('Трансферний папір', 'Paper', 50);
 ```
+<img width="652" height="587" alt="image" src="https://github.com/user-attachments/assets/52a78a89-10bb-4afe-af21-87c705dab8b6" />
+
 ### UPDATE
 
 ```sql
