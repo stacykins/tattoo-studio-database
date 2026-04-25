@@ -104,6 +104,8 @@ SELECT full_name, specialization
 FROM Artists 
 WHERE specialization = 'Realism';
 ```
+<img width="445" height="95" alt="image" src="https://github.com/user-attachments/assets/a7ea4ffd-0088-4018-ba9c-58f6bfe97056" />
+
 ```sql
 -- Отримуємо інформацію про сеанси, вартість яких перевищує 2000 грн, відсортовані від найдорожчого до найдешевшого
 SELECT session_id, scheduled_at, total_price 
@@ -111,12 +113,16 @@ FROM Sessions
 WHERE total_price > 2000 
 ORDER BY total_price DESC;
 ```
+<img width="546" height="75" alt="image" src="https://github.com/user-attachments/assets/de9ab4b6-fdb4-486a-a4b0-3d956e191eb7" />
+
 ```sql
 -- Об'єднуємо таблиці клієнтів та сеансів (JOIN), щоб побачити ім'я клієнта поруч з датою та вартістю його сеансу
 SELECT c.full_name, s.scheduled_at, s.total_price 
 FROM Clients c 
 JOIN Sessions s ON c.client_id = s.client_id;
 ```
+<img width="617" height="141" alt="image" src="https://github.com/user-attachments/assets/9f39951a-e63c-4f8d-bbf9-f638025d0cd7" />
+
 ### INSERT
 ```sql
 -- Додаємо нового клієнта з його персональними даними до таблиці Clients
