@@ -59,7 +59,8 @@ WHERE c.client_id = 2;
 
 додається 500 грн до вартості
 списуються матеріали зі складу
-SQL-запит
+### SQL-запит
+```sql
 BEGIN;
 
 UPDATE Sessions 
@@ -85,39 +86,59 @@ FROM Sessions s
 JOIN Material_Usage mu ON mu.session_id = s.session_id
 JOIN Inventory i ON i.item_id = mu.item_id
 WHERE s.session_id = 1;
+```
 Результат
 
 Тут вставити результат виконання запиту
 
-4. Операції маніпулювання даними
-SELECT
+## 4. Операції маніпулювання даними
+
+### SELECT
+```sql
 SELECT full_name, specialization 
 FROM Artists 
 WHERE specialization = 'Realism';
+```
+```sql
 SELECT session_id, scheduled_at, total_price 
 FROM Sessions 
 WHERE total_price > 2000 
 ORDER BY total_price DESC;
+```
+```sql
 SELECT c.full_name, s.scheduled_at, s.total_price 
 FROM Clients c 
 JOIN Sessions s ON c.client_id = s.client_id;
-INSERT
+```
+### INSERT
 INSERT INTO Clients (full_name, phone, medical_notes) 
 VALUES ('Катерина Мельник', '+380509998877', 'Немає');
+```sql
 INSERT INTO Inventory (item_name, category, quantity) 
 VALUES ('Трансферний папір', 'Paper', 50);
-UPDATE
+### UPDATE
+```
+```sql
 UPDATE Clients 
 SET medical_notes = 'Низький больовий поріг, алергія на латекс' 
 WHERE phone = '+380937778899';
+```
+```sql
 UPDATE Sessions 
 SET total_price = 2200.00 
 WHERE session_id = 3;
+```
+```sql
 UPDATE Inventory 
 SET quantity = quantity + 50 
 WHERE item_name = 'Голки RL-3';
-DELETE
+### DELETE
+```
+```sql
 DELETE FROM Clients 
 WHERE phone = '+380509998877';
+```
+```sql
 DELETE FROM Inventory 
 WHERE item_name = 'Трансферний папір';
+```
