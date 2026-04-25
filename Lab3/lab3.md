@@ -114,8 +114,10 @@ FROM Clients c
 JOIN Sessions s ON c.client_id = s.client_id;
 ```
 ### INSERT
+```sql
 INSERT INTO Clients (full_name, phone, medical_notes) 
 VALUES ('Катерина Мельник', '+380509998877', 'Немає');
+```
 ```sql
 INSERT INTO Inventory (item_name, category, quantity) 
 VALUES ('Трансферний папір', 'Paper', 50);
