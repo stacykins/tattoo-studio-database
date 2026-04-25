@@ -146,26 +146,36 @@ UPDATE Clients
 SET medical_notes = 'Низький больовий поріг, алергія на латекс' 
 WHERE phone = '+380937778899';
 ```
+<img width="875" height="181" alt="image" src="https://github.com/user-attachments/assets/7ab1e89f-d8f0-442b-b85e-2ffe6c88e440" />
+
 ```sql
 -- Встановлюємо нову фінальну ціну для сеансу з ID 3 (наприклад, через зміну ескізу на складніший)
 UPDATE Sessions 
 SET total_price = 2200.00 
 WHERE session_id = 3;
 ```
+<img width="731" height="154" alt="image" src="https://github.com/user-attachments/assets/9183b904-e68c-42f7-869c-816e1af54278" />
+
 ```sql
 -- Збільшуємо кількість голок на складі на 50 одиниць (прийшла нова поставка)
 UPDATE Inventory 
 SET quantity = quantity + 50 
 WHERE item_name = 'Голки RL-3';
 ```
+<img width="648" height="211" alt="image" src="https://github.com/user-attachments/assets/68dca7bb-56f5-4d5c-907c-b01f9dbf5d27" />
+
 ### DELETE
 ```sql
 -- Видаляємо з бази запис про клієнта за номером телефону (наприклад, створено помилково)
 DELETE FROM Clients 
 WHERE phone = '+380509998877';
 ```
+<img width="883" height="156" alt="image" src="https://github.com/user-attachments/assets/751aa81c-f4da-4f5f-ac36-1958dadbdfbf" />
+
 ```sql
 -- Видаляємо трансферний папір із загального списку складу
 DELETE FROM Inventory 
 WHERE item_name = 'Трансферний папір';
 ```
+<img width="641" height="145" alt="image" src="https://github.com/user-attachments/assets/498b7bc6-269b-438b-99e6-b353a3118263" />
+
