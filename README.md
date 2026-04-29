@@ -38,13 +38,3 @@
 
 ---
 
-## 📂 Структура репозиторію
-```text
-├── sql/
-│   ├── schema.sql          # Створення таблиць (DDL)
-│   ├── seed.sql            # Тестові дані (DML)
-│   └── analytical_queries.sql # Лабораторна 4 (OLAP)
-├── docs/
-│   ├── ERD_diagram.png     # Візуалізація схеми
-│   └── report_lab4.md      # Детальний опис аналітичних запитів
-└── README.md
