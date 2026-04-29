@@ -1,6 +1,5 @@
 # 🖋️ Tattoo Studio Management System (PostgreSQL)
-![Project Banner](<img width="704" height="543" alt="image" src="https://github.com/user-attachments/assets/84372fe3-4e38-41b2-8772-88d96ab6c79a" />
-)
+<img width="704" height="543" alt="Project Banner" src="https://github.com/user-attachments/assets/84372fe3-4e38-41b2-8772-88d96ab6c79a" />
 
 Реляційна база даних для автоматизації бізнес-процесів сучасної тату-студії. Проект охоплює повний цикл розробки: від концептуального моделювання до складної аналітики (OLAP) та оптимізації.
 
