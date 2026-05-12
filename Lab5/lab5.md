@@ -1,91 +1,113 @@
-# Лабораторна робота 5: Нормалізація бази даних 🛠️
+Лабораторна робота 5: Нормалізація бази даних
+Виконав(ла): 
+1. Початковий дизайн таблиць
+Для демонстрації процесу нормалізації припустимо, що на початковому етапі дані тату-студії зберігалися в одному ненормалізованому журналі: studio_log_draft.
 
-## 1. Аналіз початкової схеми (Lab 2)
-Початкова схема містить 6 таблиць: `Clients`, `Artists`, `Sessions`, `Tattoos`, `Inventory`, `Material_Usage`. 
-Більшість таблиць вже перебувають у 2NF або 3NF, проте для виконання вимог лабораторної роботи було виявлено та змодельовано потенційні проблеми з надлишковістю в таблиці **Inventory** та таблиці **Tattoos**.
+Таблиця: studio_log_draft
+Стовпці:
 
-### Виявлені проблеми (Аномалії):
-1. **Надлишковість у `Inventory`**: Поле `category` містить повторювані текстові значення ("Needles", "Ink"). Це може призвести до аномалій при оновленні (наприклад, якщо назву категорії потрібно змінити всюди).
-2. **Транзитивна залежність у `Tattoos`**: Опис татуювання часто прив'язаний до певного "Стилю", який зараз не винесений в окремий довідник.
+session_id (PK)
 
----
+client_full_name
 
-## 2. Перелік функціональних залежностей (ФЗ)
-Для ключових таблиць визначено такі залежності:
+client_phone
 
-* **Таблиця Clients**: `client_id` → `full_name`, `phone`, `medical_notes`
-* **Таблиця Inventory**: 
-    * `item_id` → `item_name`, `category_id`
-    * `category_id` → `category_name` (Транзитивна залежність через категорію)
-* **Таблиця Sessions**: `session_id` → `client_id`, `artist_id`, `scheduled_at`, `total_price`
+medical_notes
 
----
+artist_name (ПІБ майстра текстом)
 
-## 3. Покроковий процес нормалізації
+specialization
 
-### Крок 1: Перша нормальна форма (1NF)
-**Критерій:** Атомарність значень. 
-У вашій схемі Лаби 2 всі дані вже атомарні (немає списків через кому в одній клітинці).
-* **Статус:** Виконано.
+session_date
 
-### Крок 2: Друга нормальна форма (2NF)
-**Критерій:** 1NF + відсутність часткових залежностей (неключові атрибути залежать від усього ПК).
-У таблиці `Material_Usage` (яка має складений логічний ключ `session_id` + `item_id`), поле `amount_used` залежить від обох компонентів ключа.
-* **Статус:** Виконано.
+total_price
 
-### Крок 3: Третя нормальна форма (3NF)
-**Критерій:** 2NF + відсутність транзитивних залежностей (неключовий атрибут не повинен залежати від іншого неключового атрибута).
+inventory_items_used (наприклад: "Голка RL-3: 2шт, Фарба Black: 1шт")
 
-**Проблема в Inventory:** Поле `category` залежить від `item_id`, але воно логічно формує окрему групу. Щоб уникнути помилок при введенні категорій (наприклад, "Ink" vs "Inks"), створимо таблицю `Categories`.
+Аналіз проблеми:
+Поточна схема не відповідає 1NF, оскільки стовпець inventory_items_used містить множинні значення (перелік матеріалів через кому). Також присутні транзитивні залежності: спеціалізація майстра залежить від імені майстра, а не від ID сеансу.
 
-**Перетворення:**
-1. Створюємо таблицю `Item_Categories`.
-2. В `Inventory` замінюємо текстове поле `category` на `category_id` (FK).
+2. Функціональні залежності (ФЗ)
+Якщо розбити складні поля на окремі атрибути, мінімальний набір ФЗ буде таким:
 
----
+ФЗ 1 (Повна залежність): {session_id, item_id} -> {amount_used} — Кількість використаного матеріалу залежить від конкретного сеансу та конкретного товару.
 
-## 4. Оновлений дизайн таблиць та SQL-скрипт
+ФЗ 2 (Часткова залежність): session_id -> {client_id, artist_id, session_date, price} — Основні дані сеансу залежать лише від ID сеансу.
 
-### Зміни (ALTER TABLE та нові сутності):
-Нижче наведено фінальний SQL-код, який приводить базу до повної **3NF**.
+ФЗ 3 (Транзитивна залежність): client_id -> {client_full_name, client_phone} — Дані клієнта залежать від його ідентифікатора.
 
-```sql
--- 1. Створення таблиці категорій (усунення транзитивної залежності в Inventory)
-CREATE TABLE Item_Categories (
-    category_id SERIAL PRIMARY KEY,
-    category_name VARCHAR(50) NOT NULL UNIQUE
+ФЗ 4 (Транзитивна залежність): artist_id -> {artist_name, specialization} — Дані майстра залежать від його ідентифікатора.
+
+ФЗ 5 (Транзитивна залежність): item_id -> {item_name, category} — Дані складу залежать від ID товару.
+
+3. Нормалізація
+Крок 1: Перехід до 1NF (Атомарність)
+Рішення: Розбиваємо поле inventory_items_used на окремі рядки. Тепер кожен запис містить лише один матеріал для одного сеансу.
+
+Крок 2: Перехід до 2NF (Усунення часткових залежностей)
+Рішення: Оскільки у нас з'явився складений ключ (сеанс + матеріал), ми відокремлюємо дані про самі сеанси від даних про витрати матеріалів.
+
+Результат: Таблиці Sessions_2NF та Material_Usage.
+
+Крок 3: Перехід до 3NF (Усунення транзитивних залежностей)
+Рішення: Виносимо дані клієнтів та майстрів у власні таблиці, щоб уникнути дублювання імен. Також виносимо категорії товарів в окремий довідник.
+
+Результат: Таблиці Clients, Artists, Inventory, Categories.
+
+4. Трансформація структури (ALTER TABLE)
+Використовуємо команди ALTER TABLE для встановлення зв'язків та обмежень цілісності у твоїй існуючій базі.
+
+SQL
+-- Прив'язуємо сеанс до клієнта
+ALTER TABLE Sessions 
+ADD CONSTRAINT fk_session_client FOREIGN KEY (client_id) REFERENCES Clients(client_id) ON DELETE CASCADE;
+
+-- Додаємо перевірку ціни (щоб не була від'ємною)
+ALTER TABLE Sessions 
+ADD CONSTRAINT chk_total_price CHECK (total_price >= 0);
+
+-- Усуваємо текстове дублювання категорій у складі
+-- (Припускаємо, що ми вже створили таблицю Item_Categories)
+ALTER TABLE Inventory 
+ADD COLUMN category_id INT,
+ADD CONSTRAINT fk_inventory_category FOREIGN KEY (category_id) REFERENCES Item_Categories(category_id);
+5. Перероблений дизайн таблиць (SQL 3NF)
+SQL
+-- 1. Таблиця Клієнтів
+CREATE TABLE Clients (
+    client_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    medical_notes TEXT
 );
 
--- Початкове наповнення категорій
-INSERT INTO Item_Categories (category_name) VALUES ('Needles'), ('Ink'), ('Aftercare');
+-- 2. Таблиця Майстрів
+CREATE TABLE Artists (
+    artist_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    specialization VARCHAR(50) NOT NULL
+);
 
--- 2. Переробка таблиці Inventory (Приведення до 3NF)
--- Спочатку видаляємо стару залежність, якщо вона була, або створюємо заново
-DROP TABLE IF EXISTS Material_Usage; -- видаляємо через зв'язки
-DROP TABLE IF EXISTS Inventory;
+-- 3. Таблиця Сеансів (3NF)
+CREATE TABLE Sessions (
+    session_id SERIAL PRIMARY KEY,
+    client_id INT NOT NULL REFERENCES Clients(client_id),
+    artist_id INT NOT NULL REFERENCES Artists(artist_id),
+    scheduled_at TIMESTAMP NOT NULL CHECK (scheduled_at > NOW()),
+    total_price DECIMAL(10, 2) NOT NULL CHECK (total_price >= 0)
+);
 
+-- 4. Таблиця Складу
 CREATE TABLE Inventory (
     item_id SERIAL PRIMARY KEY,
     item_name VARCHAR(100) NOT NULL,
-    category_id INTEGER REFERENCES Item_Categories(category_id),
-    quantity INTEGER NOT NULL DEFAULT 0
+    quantity INT DEFAULT 0
 );
 
--- 3. Відновлення таблиці Material_Usage
+-- 5. Таблиця Витрат (Зв'язок Many-to-Many)
 CREATE TABLE Material_Usage (
     usage_id SERIAL PRIMARY KEY,
-    session_id INTEGER NOT NULL REFERENCES Sessions(session_id) ON DELETE CASCADE,
-    item_id INTEGER NOT NULL REFERENCES Inventory(item_id) ON DELETE CASCADE,
-    amount_used INTEGER NOT NULL CHECK (amount_used > 0)
+    session_id INT NOT NULL REFERENCES Sessions(session_id) ON DELETE CASCADE,
+    item_id INT NOT NULL REFERENCES Inventory(item_id) ON DELETE CASCADE,
+    amount_used INT NOT NULL CHECK (amount_used > 0)
 );
-
--- 4. Додавання довідника стилів для таблиці Tattoos
-CREATE TABLE Tattoo_Styles (
-    style_id SERIAL PRIMARY KEY,
-    style_name VARCHAR(50) NOT NULL UNIQUE
-);
-
-INSERT INTO Tattoo_Styles (style_name) VALUES ('Realism'), ('Old School'), ('Minimalism');
-
--- Оновлюємо таблицю Tattoos (додаємо зв'язок зі стилем)
-ALTER TABLE Tattoos ADD COLUMN style_id INTEGER REFERENCES Tattoo_Styles(style_id);
