@@ -1,5 +1,6 @@
 Лабораторна робота 5: Нормалізація бази даних
-Виконав(ла): 
+Виконав(ла): [Твоє Ім'я]
+
 1. Початковий дизайн таблиць
 Для демонстрації процесу нормалізації припустимо, що на початковому етапі дані тату-студії зберігалися в одному ненормалізованому журналі: studio_log_draft.
 
@@ -110,4 +111,41 @@ CREATE TABLE Material_Usage (
     session_id INT NOT NULL REFERENCES Sessions(session_id) ON DELETE CASCADE,
     item_id INT NOT NULL REFERENCES Inventory(item_id) ON DELETE CASCADE,
     amount_used INT NOT NULL CHECK (amount_used > 0)
+);
+
+
+
+CREATE TABLE Clients (
+    client_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    medical_notes TEXT
+);
+
+CREATE TABLE Artists (
+    artist_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    specialization VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Sessions (
+    session_id SERIAL PRIMARY KEY,
+    client_id INTEGER NOT NULL REFERENCES Clients(client_id),
+    artist_id INTEGER NOT NULL REFERENCES Artists(artist_id),
+    scheduled_at TIMESTAMP NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE Inventory (
+    item_id SERIAL PRIMARY KEY,
+    item_name VARCHAR(100) NOT NULL,
+    category VARCHAR(50),
+    quantity INTEGER DEFAULT 0
+);
+
+CREATE TABLE Material_Usage (
+    usage_id SERIAL PRIMARY KEY,
+    session_id INTEGER REFERENCES Sessions(session_id),
+    item_id INTEGER REFERENCES Inventory(item_id),
+    amount_used INTEGER NOT NULL
 );
