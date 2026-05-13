@@ -76,7 +76,9 @@ ADD CONSTRAINT chk_positive_price CHECK (total_price >= 0);
 ALTER TABLE Material_Usage 
 ADD CONSTRAINT fk_usage_item FOREIGN KEY (item_id) REFERENCES Inventory(item_id) ON DELETE CASCADE;
 
+```
 
+```sql
 CREATE TABLE Clients (
     client_id SERIAL PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -112,5 +114,5 @@ CREATE TABLE Material_Usage (
     amount_used INTEGER NOT NULL
 );
 
-
+```
 
