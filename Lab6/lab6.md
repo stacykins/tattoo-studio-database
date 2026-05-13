@@ -229,7 +229,8 @@ Prisma автоматично перевіряє:
 ### Скріншот таблиці Review
 
 ```text
-[ВСТАВТЕ СКРІНШОТ REVIEW ТУТ]
+<img width="1131" height="138" alt="image" src="https://github.com/user-attachments/assets/cc8168fc-186e-45e6-987d-725d111454a8" />
+
 ```
 
 ---
@@ -249,54 +250,18 @@ Prisma автоматично перевіряє:
 
 Поле `description` успішно видалено зі структури таблиці `tattoos`.
 
-### Скріншот таблиці artists або tattoos
+### Скріншот таблиці artists і tattoos
 
 ```text
-[ВСТАВТЕ СКРІНШОТ ARTISTS/TATTOOS ТУТ]
+<img width="1291" height="103" alt="image" src="https://github.com/user-attachments/assets/b2056d65-f03f-4993-b932-cd95ea3fcc25" />
+<img width="1071" height="97" alt="image" src="https://github.com/user-attachments/assets/2333ad06-b809-405d-ae4f-4f9849a7e6b3" />
+
+
 ```
 
 ---
 
-# 7. Перевірка за допомогою Prisma Client
 
-Для перевірки роботи Prisma Client було створено тестовий скрипт.
-
-## test.js
-
-```javascript
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
-
-async function main() {
-
-    await prisma.review.create({
-        data: {
-            rating: 5,
-            comment: "Amazing tattoo!",
-            tattoo_id: 1
-        }
-    });
-
-    const reviews = await prisma.review.findMany({
-        include: {
-            tattoo: true
-        }
-    });
-
-    console.log(reviews);
-}
-
-main()
-    .catch((e) => {
-        console.error(e);
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
-```
-
----
 
 ## Результат виконання
 
