@@ -468,8 +468,10 @@ CREATE TABLE Material_Usage (
 ```
 
 ---
+<img width="363" height="406" alt="image" src="https://github.com/user-attachments/assets/dd6bb6cf-e3f1-4606-b38b-1e49334f5b2b" />
 
 # 6. Оновлена ER-Діаграма
+<img width="1305" height="509" alt="image" src="https://github.com/user-attachments/assets/e39bddfd-9e16-4850-a8fe-be4a12508449" />
 
 До звіту додається оновлена ER-діаграма, яка містить:
 - Clients
