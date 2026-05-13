@@ -32,9 +32,9 @@
   - Наповнення бази тестовими даними (DML) та реалізація стандартних транзакційних запитів.
 - [x] **Lab 4: Advanced Analytics & Reporting (OLAP)**
   - Написання складних агрегаційних запитів, використання JOIN, віконних функцій та підзапитів для бізнес-аналізу.
-- [ ] **Lab 5: Database Normalization & Optimization**
+- [x] **Lab 5: Database Normalization & Optimization**
   - Приведення до 3NF/BCNF, декомпозиція таблиць та створення індексів для прискорення пошуку.
-- [ ] **Lab 6: Migration & Schema Evolution**
+- [x] **Lab 6: Migration & Schema Evolution**
   - Використання міграцій (наприклад, через Prisma ORM або Liquibase) для контролю версій схеми.
 
 ---
