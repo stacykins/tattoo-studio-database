@@ -468,7 +468,7 @@ CREATE TABLE Material_Usage (
 ```
 
 ---
-<img width="363" height="406" alt="image" src="https://github.com/user-attachments/assets/dd6bb6cf-e3f1-4606-b38b-1e49334f5b2b" />
+
 
 # 6. # Початкова та фінальна ER-схеми
 
