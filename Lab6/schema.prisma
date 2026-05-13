@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model artists {
+  artist_id      Int        @id @default(autoincrement())
+  full_name      String     @db.VarChar(100)
+  specialization String     @db.VarChar(50)
+  bio            String?    
+  sessions       sessions[]
+}
+
+model clients {
+  client_id     Int        @id @default(autoincrement())
+  full_name     String     @db.VarChar(100)
+  phone         String     @unique @db.VarChar(20)
+  medical_notes String?
+  sessions      sessions[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model inventory {
+  item_id        Int              @id @default(autoincrement())
+  item_name      String           @db.VarChar(100)
+  category       String?          @db.VarChar(50)
+  quantity       Int              @default(0)
+  material_usage material_usage[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model material_usage {
+  usage_id    Int       @id @default(autoincrement())
+  session_id  Int
+  item_id     Int
+  amount_used Int
+  inventory   inventory @relation(fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: NoAction)
+  sessions    sessions  @relation(fields: [session_id], references: [session_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model sessions {
+  session_id     Int              @id @default(autoincrement())
+  client_id      Int
+  artist_id      Int
+  scheduled_at   DateTime         @db.Timestamp(6)
+  total_price    Decimal          @db.Decimal(10, 2)
+  material_usage material_usage[]
+  artists        artists          @relation(fields: [artist_id], references: [artist_id], onUpdate: NoAction)
+  clients        clients          @relation(fields: [client_id], references: [client_id], onDelete: Cascade, onUpdate: NoAction)
+  tattoos        tattoos[]
+}
+
+model tattoos {
+  tattoo_id   Int        @id @default(autoincrement())
+  session_id  Int
+  body_part   String     @db.VarChar(50)
+  sessions    sessions   @relation(fields: [session_id], references: [session_id], onDelete: Cascade, onUpdate: NoAction)
+  reviews     Review[]   
+}
+
+model Review {
+  review_id  Int      @id @default(autoincrement())
+  rating     Int
+  comment    String?
+  tattoo_id  Int
+  tattoo     tattoos  @relation(fields: [tattoo_id], references: [tattoo_id])
+}
