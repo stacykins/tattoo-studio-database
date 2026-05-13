@@ -228,10 +228,10 @@ Prisma автоматично перевіряє:
 
 ### Скріншот таблиці Review
 
-```text
+
 <img width="1131" height="138" alt="image" src="https://github.com/user-attachments/assets/cc8168fc-186e-45e6-987d-725d111454a8" />
 
-```
+
 
 ---
 
@@ -252,12 +252,11 @@ Prisma автоматично перевіряє:
 
 ### Скріншот таблиці artists і tattoos
 
-```text
+
 <img width="1291" height="103" alt="image" src="https://github.com/user-attachments/assets/b2056d65-f03f-4993-b932-cd95ea3fcc25" />
 <img width="1071" height="97" alt="image" src="https://github.com/user-attachments/assets/2333ad06-b809-405d-ae4f-4f9849a7e6b3" />
 
 
-```
 
 ---
 
