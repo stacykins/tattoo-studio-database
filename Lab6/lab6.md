@@ -229,7 +229,8 @@ Prisma автоматично перевіряє:
 ### Скріншот таблиці Review
 
 
-<img width="1131" height="138" alt="image" src="https://github.com/user-attachments/assets/cc8168fc-186e-45e6-987d-725d111454a8" />
+<img width="1238" height="102" alt="image" src="https://github.com/user-attachments/assets/ed468899-2707-4084-8097-ce16859a8a6e" />
+
 
 
 
