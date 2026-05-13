@@ -116,3 +116,8 @@ CREATE TABLE Material_Usage (
 
 ```
 
+<img width="1124" height="606" alt="image" src="https://github.com/user-attachments/assets/48be2aaf-3f3c-41b1-b4b1-d89662545c92" />
+
+
+<img width="1221" height="671" alt="image" src="https://github.com/user-attachments/assets/2d7dc414-0d93-438e-bd74-be100105d6f5" />
+
