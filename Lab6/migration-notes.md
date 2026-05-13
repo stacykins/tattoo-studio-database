@@ -222,6 +222,9 @@ npx prisma studio
 ```
 
 Після запуску відкрився веб-інтерфейс для роботи з таблицями бази даних.
+<img width="1378" height="617" alt="image" src="https://github.com/user-attachments/assets/1f88294b-7bd3-4ad8-b486-6961687d48ca" />
+
+<img width="226" height="654" alt="image" src="https://github.com/user-attachments/assets/87ae7c48-df4a-4fa6-9d33-f899c4b1ba61" />
 
 ---
 
